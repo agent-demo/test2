@@ -32,13 +32,19 @@ make uninstall
   3. Able to edit those tasks. (toradora -e 1 "The previous task edited")
   4. Able to manifest those tasks. (toradora)
  > ===============================
+ 
  > |>>> Today's Task <<<
+ 
  > |1. "task one"
+ 
  > |2. "task two"
  
  > |>>> Backlogs <<<
+ 
  > |3. "task three"
+ 
  > |===============================
+
   5. Able to manifest all the tasks in database. (toradora -z)
 
 ## Notes
