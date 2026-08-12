@@ -1,0 +1,9 @@
+<li class="task {% if task.status %}completed{% endif %}">
+  <span class="task-text">{% if task.status %}[x]{% else %}{{ {1: '[!]', 2: '[~]', 3: '[ ]'}.get(task.priority, '[~]') }}{% endif %} {{ task.id }}. {{ task.task }}</span>
+  <span class="task-actions">
+    {% if not task.status %}
+      <form action="{{ url_for('complete_task', task_id=task.id) }}" method="post"><button type="submit">Complete</button></form>
+    {% endif %}
+    <form action="{{ url_for('delete_task', task_id=task.id) }}" method="post"><button type="submit">Delete</button></form>
+  </span>
+</li>

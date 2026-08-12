@@ -7,8 +7,8 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99
 LDLIBS = -l sqlite3
-TARGET = toradora
-SRC = toradora.c
+TARGET = todo/c/toradora
+SRC = todo/c/toradora.c
 
 .PHONY: all clean install uninstall
 
