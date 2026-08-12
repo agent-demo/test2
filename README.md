@@ -93,7 +93,7 @@ Want to skip the toy project and build something with sharper edges? Pick a real
 
 - **[Wrench](https://github.com/souls-syntax/Wrench)** — A small Go agent loop that lets local or OpenAI-compatible LLMs read files, write files, and run confirmed shell commands. A compact place to learn tool use and practical agent safety. *Difficulty: intermediate.*
 
-- **[reader.cpp](https://github.com/souls-syntax/reader.cpp)** — A terminal RSVP (Rapid Serial Visual Presentation) reader: give it a file and watch words arrive at your chosen pace. Small surface area, pleasantly focused systems/C++ work. *Difficulty: intermediate.*
+- **[reader.cpp](https://github.com/ungeniuses/reader.cpp)** — A terminal RSVP (Rapid Serial Visual Presentation) reader: give it a file and watch words arrive at your chosen pace. Small surface area, pleasantly focused systems/C++ work. *Difficulty: intermediate.*
 
 - **[elf-parser / tsundere-runtime](https://github.com/souls-syntax/elf-parser)** — A Zig userspace runtime for loading and executing a compact ELF-derived binary format, complete with memory mapping, section parsing, and a tiny SDK. Strange binaries, custom loaders, excellent rabbit hole. *Difficulty: advanced.*
 
