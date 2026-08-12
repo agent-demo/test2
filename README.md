@@ -52,6 +52,24 @@ Choose whichever track matches your comfort level. It is completely fine to star
 
 In the pull request description, explain what changed, how you tested it, and link the issue if there is one. Keep pull requests small and focused. If something is unclear, ask in the issue or pull request — asking a good question is part of contributing.
 
+## Advice
+
+We're testing your understanding of the contribution workflow, not judging which project you picked. It doesn't matter whether you touch the C, Python, JS, or Flask track, what matters is that you follow the proper procedure and make a meaningful change that actually improves the application, not a cosmetic one.
+
+Using AI tools while working is not strictly prohibited, but we will reject any PR that is substantially AI-written. We have a model trained on a large volume of AI-generated code and it detects this reliably, so don't rely on it going unnoticed.
+
+Prefer multiple small, focused PRs over one large one. It's easier for us to review, easier for you to explain, and easier to recover from if something needs to change. Set up the original repository as an `upstream` remote and sync regularly so you don't run into painful merge conflicts:
+
+```bash
+git remote add upstream https://github.com/agent-demo/toradora.git
+git fetch upstream
+git rebase upstream/main
+```
+
+If you get stuck, check the relevant track's README first, then the official docs for the tool you're using. If it's still unclear or you think something in the repo itself is wrong or missing, open a discussion or issue rather than guessing silently, we'd rather answer a question than get a confused PR.
+
+Explore the repo on your own before you touch anything. Read the code, understand what it's doing, and then write a PR that matches your actual skill level. We'd rather see a small, well-understood change than a large one you can't explain.
+
 ## C build
 
 The original C implementation is under `todo/c/`:
@@ -82,3 +100,17 @@ Want to skip the toy project and build something with sharper edges? Pick a real
 - **[C-STL](https://github.com/souls-syntax/C-STL)** — A C data-structure library with dynamic arrays and linked lists. The challenge here is deliberately difficult: implement a well-tested AVL tree or red-black tree in C, with a clean API and documentation. *Difficulty: advanced—DSA is supposed to hurt a little.*
 
 - **[MNEMOSYNE](https://github.com/Maris-CHALDEAS/MNEMOSYNE)** — A browser-based, Chaldea-themed visual-novel experience with typewriter dialogue, branching choices, affinity, and multiple endings. Built for vibes; a great home for creative frontend contributions. *Difficulty: intermediate.*
+
+## Credits
+
+The source code for `apps/calculator` was provided by [Utkarsh-1771](https://github.com/Utkarsh-1771/).
+
+## License
+
+It's a bit of a mix, so here's the breakdown:
+
+- `todo/c/toradora.c` (the original C implementation) is licensed under **AGPL-3.0**.
+- `apps/calculator/` is licensed under **MIT**, per the original author.
+- Everything else in this repository was scaffolded by me and is licensed under **BSD-2-Clause**.
+
+If you're unsure which license applies to a file you're touching, check the folder it's in or ask in your PR.
