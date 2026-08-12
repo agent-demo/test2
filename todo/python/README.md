@@ -30,3 +30,7 @@ Priority `1` is high (`[!]`), `2` is medium (`[~]`), and `3` is low (`[ ]`). Lon
 - Write unit tests for `grouped_active_tasks()`.
 - Add a friendlier error when someone completes a non-number ID.
 - Add an option to choose a custom database path through an environment variable.
+
+## License
+
+This track is licensed under the [BSD 2-Clause License](LICENSE).

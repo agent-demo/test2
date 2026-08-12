@@ -24,3 +24,7 @@ The app has server-rendered routes for listing, adding, completing, and deleting
 - Add a route that changes a task's priority.
 - Move the priority marker mapping from the template into a Jinja helper.
 - Add a small Flask test for the add-and-complete flow.
+
+## License
+
+This track is licensed under the [BSD 2-Clause License](LICENSE).

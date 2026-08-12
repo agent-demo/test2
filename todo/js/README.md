@@ -21,3 +21,7 @@ Then visit <http://localhost:8000>. Data is private to the browser profile and c
 - Show a small task count next to each section heading.
 - Add keyboard-friendly focus styles to the controls.
 - Add a one-click export/import option using JSON files.
+
+## License
+
+This track is licensed under the [BSD 2-Clause License](LICENSE).

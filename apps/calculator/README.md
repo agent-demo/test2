@@ -9,3 +9,7 @@ python3 -m http.server 8000
 ```
 
 Then visit <http://localhost:8000>.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE), per the original author.
