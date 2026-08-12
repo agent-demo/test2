@@ -101,7 +101,7 @@ Want to skip the toy project and build something with sharper edges? Pick a real
 
 - **[MNEMOSYNE](https://github.com/Maris-CHALDEAS/MNEMOSYNE)** — A browser-based, Chaldea-themed visual-novel experience with typewriter dialogue, branching choices, affinity, and multiple endings. Built for vibes; a great home for creative frontend contributions. *Difficulty: intermediate.*
 
-If you are indecisive may i recommend you reader.cpp. Don't let it's simplistic application fool, it's a glorious overengineered piece of work. I think you will certainly like it.
+If you are indecisive may i recommend you reader.cpp. Don't let it's simplistic application fool you, it's a glorious overengineered piece of work. I think you will certainly like it.
 
 ## Credits
 
