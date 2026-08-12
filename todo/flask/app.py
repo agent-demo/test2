@@ -11,6 +11,8 @@ from flask import Flask, flash, redirect, render_template, request, url_for
 PYTHON_TRACK = Path(__file__).resolve().parents[1] / "python"
 sys.path.insert(0, str(PYTHON_TRACK))
 
+# The reusable Toradora implementation lives in ../python/toradora.py.
+# Flask supplies the web interface; TodoStore keeps the task behavior shared.
 from toradora import TodoStore, grouped_active_tasks  # noqa: E402
 
 

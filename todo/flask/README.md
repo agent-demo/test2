@@ -1,6 +1,6 @@
 # Toradora — Flask
 
-This track serves the same SQLite-backed Python todo logic as `todo/python/`, but uses Flask routes and Jinja templates to render HTML on the server. It is intentionally the architectural opposite of `todo/js/`: there is no client-side framework and no browser-managed task state.
+This track serves the same SQLite-backed Python todo logic as [`todo/python/`](../python/), but uses Flask routes and Jinja templates to render HTML on the server. The shared logic is in [`todo/python/toradora.py`](../python/toradora.py); [`app.py`](app.py) imports it instead of reimplementing it. It is intentionally the architectural opposite of [`todo/js/`](../js/): there is no client-side framework and no browser-managed task state.
 
 ## Setup
 

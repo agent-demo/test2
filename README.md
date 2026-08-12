@@ -9,7 +9,7 @@ Welcome! This repository is a small practice space for GDG GLAU club applicants 
 | C | SQLite, a terminal program, and a native build | [`todo/c/`](todo/c/) |
 | Python | `argparse`, the `sqlite3` standard library, and reusable application logic | [`todo/python/`](todo/python/) |
 | Vanilla JavaScript | DOM events, client-side rendering, and `localStorage` | [`todo/js/`](todo/js/) |
-| Flask | Python web routes, Jinja templates, and server-side rendering | [`todo/flask/`](todo/flask/) |
+| Flask | Python web routes, Jinja templates, server-side rendering, and reusing the Python track's logic | [`todo/flask/`](todo/flask/) |
 
 The [`apps/calculator/`](apps/calculator/) project is an optional warm-up if you are brand new to HTML, CSS, or JavaScript.
 
@@ -101,7 +101,7 @@ Want to skip the toy project and build something with sharper edges? Pick a real
 
 - **[MNEMOSYNE](https://github.com/Maris-CHALDEAS/MNEMOSYNE)** — A browser-based, Chaldea-themed visual-novel experience with typewriter dialogue, branching choices, affinity, and multiple endings. Built for vibes; a great home for creative frontend contributions. *Difficulty: intermediate.*
 
-If you are indecisive may i recommend you reader.cpp. Don't let it's simplistic application fool you, it's a glorious overengineered piece of work. I think you will certainly like it.
+If you're indecisive, may I recommend `reader.cpp`? Don't let its simple application fool you—it is a gloriously overengineered piece of work. I think you'll enjoy it.
 
 ## Credits
 
