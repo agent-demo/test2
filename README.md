@@ -56,7 +56,7 @@ In the pull request description, explain what changed, how you tested it, and li
 
 We're testing your understanding of the contribution workflow, not judging which project you picked. It doesn't matter whether you touch the C, Python, JS, or Flask track, what matters is that you follow the proper procedure and make a meaningful change that actually improves the application, not a cosmetic one.
 
-Using AI tools while working is not strictly prohibited, but we will reject any PR that is substantially AI-written. We have a model trained on a large volume of AI-generated code and it detects this reliably, so don't rely on it going unnoticed.
+AI tools may be used for research, documentation lookup, debugging guidance, or brainstorming, but your submitted code must reflect your own understanding. We may ask you to explain your implementation or make changes during review. PRs that you cannot explain or substantially defend may be rejected.
 
 Prefer multiple small, focused PRs over one large one. It's easier for us to review, easier for you to explain, and easier to recover from if something needs to change. Set up the original repository as an `upstream` remote and sync regularly so you don't run into painful merge conflicts:
 
