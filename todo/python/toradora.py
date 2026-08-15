@@ -82,7 +82,19 @@ class TodoStore:
                 connection.execute(
                     "ALTER TABLE tasks ADD COLUMN created_at TEXT NOT NULL DEFAULT CURRENT_DATE"
                 )
+    def search(self, query: str) -> list[Task]:
+        query = query.strip()
+        if not query:
+            raise ValueError("Search query cannot be empty")
 
+        with self._connect() as connection:
+            rows = connection.execute(
+                """SELECT * FROM tasks
+                WHERE task LIKE ?
+                ORDER BY priority ASC, id ASC""",
+                (f"%{query}%",),
+            ).fetchall()
+        return [Task.from_row(row) for row in rows]
     def add(self, task: str, priority: int = 2, long_term: bool = False) -> Task:
         task = task.strip()
         if not task:
@@ -177,6 +189,12 @@ def print_all(tasks: Iterable[Task]) -> None:
         print_task(task)
     print("----------------------------------------------")
 
+def print_search_results(query: str, tasks: Iterable[Task]) -> None:
+    print("----------------------------------------------")
+    print(f'>>> Search results for "{query}" <<<')
+    for task in tasks:
+        print_task(task)
+    print("----------------------------------------------")
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="A small terminal todo list")
@@ -192,6 +210,9 @@ def build_parser() -> argparse.ArgumentParser:
     actions.add_argument("-c", "--complete", type=int, metavar="ID", help="complete a task")
     actions.add_argument(
         "-e", "--edit", nargs=2, metavar=("ID", "TASK"), help="edit a task"
+    )
+    actions.add_argument(
+        "--search", metavar="QUERY", help="search tasks by text"
     )
     actions.add_argument("--delete", type=int, metavar="ID", help="delete a task")
     actions.add_argument("-z", "--all", action="store_true", help="show all tasks")
@@ -220,6 +241,13 @@ def main(argv: list[str] | None = None) -> int:
                 if store.complete(args.complete)
                 else "No task found with that id"
             )
+        elif args.search is not None:
+            tasks = store.search(args.search)
+            if tasks:
+                print_search_results(args.search, tasks)
+            else:
+                print(f'No tasks found matching "{args.search}"')
+
         elif args.edit is not None:
             task_id, text = args.edit
             if store.edit(int(task_id), text):
@@ -232,10 +260,12 @@ def main(argv: list[str] | None = None) -> int:
                 if store.delete(args.delete)
                 else "No task found with that id"
             )
+
         elif args.all:
             print_all(store.all())
         else:
             print_active(store.active())
+
     except (ValueError, sqlite3.Error) as error:
         parser.error(str(error))
     return 0
