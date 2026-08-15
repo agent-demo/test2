@@ -122,6 +122,14 @@ class TodoStore:
             )
         return cursor.rowcount == 1
 
+    def reopen(self, task_id: int) -> bool:
+        with self._connect() as connection:
+            cursor = connection.execute(
+                "UPDATE tasks SET status = 0 WHERE id = ? AND status = 1",
+                (task_id,),
+            )
+        return cursor.rowcount == 1
+
     def edit(self, task_id: int, task: str) -> bool:
         task = task.strip()
         if not task:
@@ -199,6 +207,9 @@ def build_parser() -> argparse.ArgumentParser:
         "-p", "--priority", type=int, choices=(1, 2, 3), default=2,
         help="1=high, 2=medium, 3=low (default: 2)",
     )
+    actions.add_argument(
+        "-r", "--reopen", type=int, metavar="ID", help="reopen a completed task"
+    )
     return parser
 
 
@@ -219,6 +230,12 @@ def main(argv: list[str] | None = None) -> int:
                 f"Task {args.complete} marked as complete"
                 if store.complete(args.complete)
                 else "No task found with that id"
+            )
+        elif args.reopen is not None:
+            print(
+                f"Task {args.reopen} reopened"
+                if store.reopen(args.reopen)
+                else "No completed task found with that id"
             )
         elif args.edit is not None:
             task_id, text = args.edit
