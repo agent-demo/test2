@@ -126,7 +126,27 @@ class TodoStore:
                 "SELECT * FROM tasks ORDER BY priority ASC, id ASC"
             ).fetchall()
         return [Task.from_row(row) for row in rows]
+    def stats(self) -> dict[str, int]:
+        with self._connect() as connection:
+            row = connection.execute(
+                """SELECT
+                    COUNT(*) AS total,
+                    SUM(status = 0) AS active,
+                    SUM(status = 1) AS completed,
+                    SUM(priority = 1) AS high,
+                    SUM(priority = 2) AS medium,
+                    SUM(priority = 3) AS low
+                FROM tasks"""
+            ).fetchone()
 
+        return {
+            "total": row["total"],
+            "active": row["active"] or 0,
+            "completed": row["completed"] or 0,
+            "high": row["high"] or 0,
+            "medium": row["medium"] or 0,
+            "low": row["low"] or 0,
+        }
     def complete(self, task_id: int) -> bool:
         with self._connect() as connection:
             cursor = connection.execute(
@@ -197,6 +217,15 @@ def print_all(tasks: Iterable[Task]) -> None:
         print_task(task)
     print("----------------------------------------------")
 
+def print_stats(stats: dict[str, int]) -> None:
+    print("----------------------------------------------")
+    print(">>> Task Statistics <<<")
+    print(f"Total tasks: {stats['total']}")
+    print(f"Active tasks: {stats['active']}")
+    print(f"Completed tasks: {stats['completed']}")
+    print(f"High priority: {stats['high']}")
+    print(f"Medium priority: {stats['medium']}")
+    print(f"Low priority: {stats['low']}")
 def print_search_results(query: str, tasks: Iterable[Task]) -> None:
     print("----------------------------------------------")
     print(f'>>> Search results for "{query}" <<<')
@@ -220,6 +249,7 @@ def build_parser() -> argparse.ArgumentParser:
         "-e", "--edit", nargs=2, metavar=("ID", "TASK"), help="edit a task"
     )
     actions.add_argument(
+        "--stats", action="store_true", help="show task statistics"
         "--search", metavar="QUERY", help="search tasks by text"
     )
     actions.add_argument("--delete", type=int, metavar="ID", help="delete a task")
@@ -271,6 +301,8 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"Task {task_id} updated")
             else:
                 print("No task found with that id")
+        elif args.stats:
+            print_stats(store.stats())
         elif args.delete is not None:
             print(
                 f"Task {args.delete} deleted"
