@@ -31,10 +31,41 @@
         </label>
       </form>
 
-      <div class="toolbar">
-        <h2>Tasks</h2>
-        <label><input id="show-all" type="checkbox"> Show completed</label>
-      </div>
+     <div class="toolbar">
+  <h2>Tasks</h2>
+
+  <div>
+    <label for="priority-filter">Priority:</label>
+    <select id="priority-filter">
+      <option value="all">All</option>
+      <option value="1">High</option>
+      <option value="2">Medium</option>
+      <option value="3">Low</option>
+    </select>
+    
+     <button id="clear-completed" type="button">
+      Clear completed
+    </button>
+    <button id="export-json" type="button">
+  Export JSON
+</button>
+
+<button id="import-json" type="button">
+  Import JSON
+</button>
+
+<input
+  id="import-file"
+  type="file"
+  accept=".json,application/json"
+  hidden
+>
+    <label>
+      <input id="show-all" type="checkbox">
+      Show completed
+    </label>
+  </div>
+</div>
       <div id="task-groups" aria-live="polite"></div>
       <p id="empty-state" class="empty-state" hidden>No tasks yet. Add your first one above.</p>
     </main>
