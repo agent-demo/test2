@@ -82,7 +82,19 @@ class TodoStore:
                 connection.execute(
                     "ALTER TABLE tasks ADD COLUMN created_at TEXT NOT NULL DEFAULT CURRENT_DATE"
                 )
+    def search(self, query: str) -> list[Task]:
+        query = query.strip()
+        if not query:
+            raise ValueError("Search query cannot be empty")
 
+        with self._connect() as connection:
+            rows = connection.execute(
+                """SELECT * FROM tasks
+                WHERE task LIKE ?
+                ORDER BY priority ASC, id ASC""",
+                (f"%{query}%",),
+            ).fetchall()
+        return [Task.from_row(row) for row in rows]
     def add(self, task: str, priority: int = 2, long_term: bool = False) -> Task:
         task = task.strip()
         if not task:
@@ -139,6 +151,14 @@ class TodoStore:
         with self._connect() as connection:
             cursor = connection.execute(
                 "UPDATE tasks SET status = 1 WHERE id = ?", (task_id,)
+            )
+        return cursor.rowcount == 1
+
+    def reopen(self, task_id: int) -> bool:
+        with self._connect() as connection:
+            cursor = connection.execute(
+                "UPDATE tasks SET status = 0 WHERE id = ? AND status = 1",
+                (task_id,),
             )
         return cursor.rowcount == 1
 
@@ -206,6 +226,11 @@ def print_stats(stats: dict[str, int]) -> None:
     print(f"High priority: {stats['high']}")
     print(f"Medium priority: {stats['medium']}")
     print(f"Low priority: {stats['low']}")
+def print_search_results(query: str, tasks: Iterable[Task]) -> None:
+    print("----------------------------------------------")
+    print(f'>>> Search results for "{query}" <<<')
+    for task in tasks:
+        print_task(task)
     print("----------------------------------------------")
 
 def build_parser() -> argparse.ArgumentParser:
@@ -225,12 +250,16 @@ def build_parser() -> argparse.ArgumentParser:
     )
     actions.add_argument(
         "--stats", action="store_true", help="show task statistics"
+        "--search", metavar="QUERY", help="search tasks by text"
     )
     actions.add_argument("--delete", type=int, metavar="ID", help="delete a task")
     actions.add_argument("-z", "--all", action="store_true", help="show all tasks")
     parser.add_argument(
         "-p", "--priority", type=int, choices=(1, 2, 3), default=2,
         help="1=high, 2=medium, 3=low (default: 2)",
+    )
+    actions.add_argument(
+        "-r", "--reopen", type=int, metavar="ID", help="reopen a completed task"
     )
     return parser
 
@@ -253,6 +282,19 @@ def main(argv: list[str] | None = None) -> int:
                 if store.complete(args.complete)
                 else "No task found with that id"
             )
+        elif args.search is not None:
+            tasks = store.search(args.search)
+            if tasks:
+                print_search_results(args.search, tasks)
+            else:
+                print(f'No tasks found matching "{args.search}"')
+
+        elif args.reopen is not None:
+            print(
+                f"Task {args.reopen} reopened"
+                if store.reopen(args.reopen)
+                else "No completed task found with that id"
+            )
         elif args.edit is not None:
             task_id, text = args.edit
             if store.edit(int(task_id), text):
@@ -267,10 +309,12 @@ def main(argv: list[str] | None = None) -> int:
                 if store.delete(args.delete)
                 else "No task found with that id"
             )
+
         elif args.all:
             print_all(store.all())
         else:
             print_active(store.active())
+
     except (ValueError, sqlite3.Error) as error:
         parser.error(str(error))
     return 0
