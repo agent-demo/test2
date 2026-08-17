@@ -33,11 +33,3 @@ button:hover { background: #5140b7; }
   .form-row, .task { align-items: stretch; flex-direction: column; }
   .task-actions { justify-content: flex-end; }
 }
-
-/* Keyboard-friendly focus styles */
-button:focus-visible,
-input:focus-visible,
-select:focus-visible {
-  outline: 3px solid #6854d9;
-  outline-offset: 2px;
-}
