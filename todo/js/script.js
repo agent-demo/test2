@@ -6,7 +6,9 @@ const taskInput = document.querySelector("#task-input");
 const priorityInput = document.querySelector("#priority-input");
 const longTermInput = document.querySelector("#long-term-input");
 const showAllInput = document.querySelector("#show-all");
-
+// changes made for Clear Completed button
+const clearCompletedButton = document.querySelector("#clear-completed");
+// changes end here
 
 // change here in js script.js.
 const priorityFilter = document.querySelector("#priority-filter");
@@ -127,6 +129,14 @@ function updateTask(id, changes) {
   render();
 }
 
+// changes made for Clear Completed functionality
+function clearCompletedTasks() {
+  tasks = tasks.filter((task) => !task.status);
+  saveTasks();
+  render();
+}
+// changes end here
+
 function render() {
   groupsElement.replaceChildren();
   const groups = groupTasks();
@@ -178,6 +188,11 @@ taskInput.focus();
 
 showAllInput.addEventListener("change", render);
 priorityFilter.addEventListener("change", render);
+
+// changes made for Clear Completed event
+clearCompletedButton.addEventListener("click",clearCompletedTasks);
+// changes end here
+
 render();
 
 
