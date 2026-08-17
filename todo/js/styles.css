@@ -19,8 +19,38 @@ button { cursor: pointer; background: #6854d9; color: white; border-color: #6854
 button:hover { background: #5140b7; }
 .checkbox-label { margin-top: .75rem; font-size: .9rem; }
 .checkbox-label input, .toolbar input { margin-right: .35rem; }
-.toolbar { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; }
-.toolbar label { font-size: .9rem; }
+
+
+
+
+/* changes made in css file for priority problem  */
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+}
+
+.toolbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toolbar label {
+  font-size: 14.4px;
+}
+
+.toolbar select {
+  padding: 7.2px 9.6px;
+}
+
+/* changes made in css file for priority problem ends */
+
+
+
+
 .task-list { list-style: none; padding: 0; margin: 0; }
 .task { display: flex; justify-content: space-between; gap: 1rem; align-items: center; border-top: 1px solid #eeeef2; padding: .75rem 0; }
 .task:first-child { border-top: 0; }

@@ -32,9 +32,33 @@
       </form>
 
       <div class="toolbar">
-        <h2>Tasks</h2>
-        <label><input id="show-all" type="checkbox"> Show completed</label>
-      </div>
+  <h2>Tasks</h2>
+
+
+
+<!-- changes made in html filter -->
+
+
+  <div class="toolbar-controls">
+    <label for="priority-filter">Filter:</label>
+    <select id="priority-filter">
+      <option value="all">All priorities</option>
+      <option value="1">High priority</option>
+      <option value="2">Medium priority</option>
+      <option value="3">Low priority</option>
+    </select>
+
+    <label>
+      <input id="show-all" type="checkbox">
+      Show completed
+    </label>
+  </div>
+</div>
+
+
+<!-- changes made in html filter end here --> 
+
+
       <div id="task-groups" aria-live="polite"></div>
       <p id="empty-state" class="empty-state" hidden>No tasks yet. Add your first one above.</p>
     </main>

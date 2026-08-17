@@ -6,6 +6,14 @@ const taskInput = document.querySelector("#task-input");
 const priorityInput = document.querySelector("#priority-input");
 const longTermInput = document.querySelector("#long-term-input");
 const showAllInput = document.querySelector("#show-all");
+
+
+// change here in js script.js.
+const priorityFilter = document.querySelector("#priority-filter");
+// change end here in js script.js
+
+
+
 const groupsElement = document.querySelector("#task-groups");
 const emptyState = document.querySelector("#empty-state");
 
@@ -39,27 +47,49 @@ function addTask(text, priority, longTerm) {
   render();
 }
 
+
+
+
+//changes made in js script.js. 
+
 function groupTasks() {
   const today = new Date().toISOString().slice(0, 10);
   const groups = { "Long-term": [], "Today's Tasks": [], Backlog: [] };
+
   tasks
     .filter((task) => showAllInput.checked || !task.status)
-    .sort((first, second) => first.priority - second.priority || first.id - second.id)
+    .filter(
+      (task) =>
+        priorityFilter.value === "all" ||
+        task.priority === Number(priorityFilter.value)
+    )
+    .sort(
+      (first, second) =>
+        first.priority - second.priority || first.id - second.id
+    )
     .forEach((task) => {
       if (task.longTerm) groups["Long-term"].push(task);
       else if (task.createdAt === today) groups["Today's Tasks"].push(task);
       else groups.Backlog.push(task);
     });
+
   return groups;
 }
 
-function makeTaskElement(task) {
+//changes done end here
+
+
+
+
+
+function makeTaskElement(task, displayNumber) //here changes done for numbering display because earlier it was taking from local storage 
+{
   const item = document.createElement("li");
   item.className = task.status ? "task completed" : "task";
 
   const text = document.createElement("span");
   text.className = "task-text";
-  text.textContent = `${task.status ? "[x]" : priorityLabels[task.priority]} ${task.id}. ${task.task}`;
+  text.textContent = `${task.status ? "[x]" : priorityLabels[task.priority]} ${displayNumber}. ${task.task}`; //here too 
   item.append(text);
 
   const actions = document.createElement("span");
@@ -109,7 +139,16 @@ function render() {
     heading.textContent = name;
     const list = document.createElement("ul");
     list.className = "task-list";
-    grouped.forEach((task) => list.append(makeTaskElement(task)));
+
+// change here in js script.js
+
+
+    grouped.forEach((task, index) =>
+  list.append(makeTaskElement(task, index + 1))
+);
+   
+// change end here in js script.js
+
     section.append(heading, list);
     groupsElement.append(section);
   });
@@ -119,10 +158,28 @@ function render() {
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   addTask(taskInput.value, priorityInput.value, longTermInput.checked);
-  form.reset();
-  priorityInput.value = "2";
-  taskInput.focus();
+
+const selectedPriority = priorityInput.value;
+
+
+// change here in js script.js. because it takes to the same priority always
+form.reset();
+priorityInput.value = selectedPriority;
+taskInput.focus();
+
+
+//change end here in js script.js
+ 
 });
 
+
+// change 2nd made in js script.js.
+
+
 showAllInput.addEventListener("change", render);
+priorityFilter.addEventListener("change", render);
 render();
+
+
+// chnage 2nd end here
+
