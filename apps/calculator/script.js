@@ -53,3 +53,54 @@ buttons.forEach(function (button) {
         screen.textContent = currentInput;
     });
 });
+document.addEventListener("keydown", function (event) {
+  const key = event.key;
+
+  
+  if (key >= "0" && key <= "9") {
+    const numberButton = Array.from(buttons).find(
+      (btn) => btn.textContent === key
+    );
+    if (numberButton) numberButton.click();
+    return;
+  }
+
+  
+  if (key === ".") {
+    const dotButton = Array.from(buttons).find(
+      (btn) => btn.textContent === "."
+    );
+    if (dotButton) dotButton.click();
+    return;
+  }
+
+
+  const operatorMap = {
+    "+": "add",
+    "-": "subtract",
+    "*": "multiply",
+    "/": "divide",
+  };
+  if (operatorMap[key]) {
+    event.preventDefault(); 
+    const opButton = document.querySelector(
+      `button[aria-label="${operatorMap[key]}"]`
+    );
+    if (opButton) opButton.click();
+    return;
+  }
+
+  
+  if (key === "Enter" || key === "=") {
+    const equalButton = document.querySelector('button[aria-label="equals"]');
+    if (equalButton) equalButton.click();
+    return;
+  }
+
+  
+  if (key === "Escape" || key.toLowerCase() === "c") {
+    const clearButton = document.querySelector('button[aria-label="clear"]');
+    if (clearButton) clearButton.click();
+    return;
+  }
+});
